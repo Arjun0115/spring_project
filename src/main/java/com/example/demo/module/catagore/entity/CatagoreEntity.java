@@ -1,6 +1,6 @@
 package com.example.demo.module.catagore.entity;
 
-import com.example.demo.common.enumstatus.ColumnStatus;
+import com.example.demo.common.enumstatus.StatusEnum;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -10,6 +10,8 @@ import lombok.Setter;
 @Getter
 @Setter
 public class CatagoreEntity {
+
+
     @Id
     @GeneratedValue( strategy = GenerationType.AUTO)
     @Column(name = "ctId")
@@ -19,6 +21,6 @@ public class CatagoreEntity {
     private String ctName ;
 
     @Column( name = "ctStatus" , nullable = false)
-    private ColumnStatus ctStatus = ColumnStatus.A;
+    private StatusEnum ctStatus = StatusEnum.A;
 
 }

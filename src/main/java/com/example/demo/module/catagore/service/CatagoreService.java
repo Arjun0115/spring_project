@@ -1,5 +1,6 @@
 package com.example.demo.module.catagore.service;
 
+import com.example.demo.common.exception.ResourceNotFoundException;
 import com.example.demo.module.catagore.dto.request.CatagoreRequestDTO;
 import com.example.demo.module.catagore.dto.response.CatagoreResponseDTO;
 
@@ -13,9 +14,9 @@ public interface CatagoreService {
 
     List<CatagoreResponseDTO> getAll() ;
 
-    CatagoreResponseDTO findById(Long id);
+    CatagoreResponseDTO findById(Long id) throws ResourceNotFoundException;
 
-    CatagoreResponseDTO softDelete(Long id) ;
+//    CatagoreResponseDTO softDelete(Long id) ;
 
     CatagoreResponseDTO hardDelete(Long id) ;
 

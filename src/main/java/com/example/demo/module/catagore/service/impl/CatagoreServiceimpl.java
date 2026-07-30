@@ -1,6 +1,5 @@
 package com.example.demo.module.catagore.service.impl;
 
-import com.example.demo.common.enumstatus.ColumnStatus;
 import com.example.demo.module.catagore.dto.request.CatagoreRequestDTO;
 import com.example.demo.module.catagore.dto.response.CatagoreResponseDTO;
 import com.example.demo.module.catagore.entity.CatagoreEntity;
@@ -28,7 +27,7 @@ public class CatagoreServiceimpl implements CatagoreService {
 
         entity.setCtName(request.getCtName());
 
-        return mapper.toRespose(entity) ;
+        return mapper.toRespose(repository.save(entity)) ;
     }
 
     @Override
@@ -43,9 +42,13 @@ public class CatagoreServiceimpl implements CatagoreService {
     @Override
     public CatagoreResponseDTO findById(Long id){
 
-        CatagoreEntity entity = repository.findById(id).orElseThrow();
 
-        return mapper.toRespose(entity) ;
+        CatagoreEntity entity = repository.findById(id).orElseThrow() ;
+
+//      CatagoreEntity entity = repository.findByCtIdAndCtStatus(id , ColumnStatus.A)
+//              .orElseThrow(()-> new ResourceNotFoundException("not found"));
+
+      return mapper.toRespose(entity) ;
     }
 
     @Override
@@ -56,18 +59,18 @@ public class CatagoreServiceimpl implements CatagoreService {
         return mapper.toListRespose(entities) ;
     }
 
-    @Override
-    public CatagoreResponseDTO softDelete(Long id){
-
-        CatagoreEntity entity = repository.findById(id).orElseThrow() ;
-
-        CatagoreResponseDTO response = mapper.toRespose(entity);
-
-        entity.setCtStatus(ColumnStatus.X);
-
-        return response ;
-
-    }
+//    @Override
+//    public CatagoreResponseDTO softDelete(Long id){
+//
+//        CatagoreEntity entity = repository.findById(id).orElseThrow() ;
+//
+//        entity.setCtStatus(ColumnStatus.X);
+//
+//        CatagoreEntity saved = repository.save(entity) ;
+//
+//        return mapper.toRespose(saved) ;
+//
+//    }
 
 
     @Override

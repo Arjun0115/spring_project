@@ -1,6 +1,6 @@
 package com.example.demo.common.enumstatus;
 
-public enum ColumnStatus {
+public enum StatusEnum {
     I , // inactive
     A, // Active
     X // delete

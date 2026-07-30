@@ -1,7 +1,7 @@
 package com.example.demo.module.note.entity;
 
 
-import com.example.demo.common.enumstatus.ColumnStatus;
+import com.example.demo.common.enumstatus.StatusEnum;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -16,16 +16,16 @@ public class NoteEntity {
     @Id
     @GeneratedValue( strategy = GenerationType.SEQUENCE , generator = "NOTE_ID_SEQ")
     @SequenceGenerator(name = "NOTE_ID_SEQ" , sequenceName = "ID_SEQ" , allocationSize = 50)
-    @Column( name = "id")
+    @Column( name = "ntId")
     private Long id ;
 
-    @Column( name = "note_title" , nullable = false )
+    @Column( name = "noteTitle" , nullable = false )
     private String title ;
 
-    @Column( name = "note_content" , nullable = false )
+    @Column( name = "noteContent" , nullable = false )
     private String content ;
 
     @Column( name = "ntStatus" , nullable = false )
-    private ColumnStatus ntStatus = ColumnStatus.A;
+    private StatusEnum ntStatus = StatusEnum.A;
 
 }

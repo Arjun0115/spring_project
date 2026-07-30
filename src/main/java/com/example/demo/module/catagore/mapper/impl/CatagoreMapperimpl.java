@@ -32,6 +32,7 @@ public class CatagoreMapperimpl implements CatagoreMapper {
     @Override
     public CatagoreResponseDTO toRespose(CatagoreEntity entity){
         CatagoreResponseDTO response = new CatagoreResponseDTO() ;
+        response.setCtId(entity.getCtId());
         response.setCtName(entity.getCtName());
         return response ;
     }

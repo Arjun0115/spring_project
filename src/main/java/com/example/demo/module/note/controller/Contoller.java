@@ -1,12 +1,13 @@
 package com.example.demo.module.note.controller;
 
+import com.example.demo.common.apibank.apiLinks.Apiurl;
 import com.example.demo.module.note.dto.request.NoteRequestDTO;
 import com.example.demo.module.note.dto.response.NoteResponseDTO;
 
 
 import com.example.demo.module.note.service.NoteService;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,11 +15,12 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/add-note")
+@RequestMapping(Apiurl.NOTE)
+@RequiredArgsConstructor
 public class Contoller {
 
-    @Autowired
-    NoteService service ;
+
+    private final NoteService service ;
 
     @PostMapping
     public NoteResponseDTO create(@RequestBody NoteRequestDTO request){
@@ -39,12 +41,12 @@ public class Contoller {
         return response;
     }
 
-    @DeleteMapping("/{id}")
-    public NoteResponseDTO softDelete(@PathVariable Long id){
-
-        NoteResponseDTO response = service.delete(id);
-        return response;
-    }
+//    @DeleteMapping("/{id}")
+//    public NoteResponseDTO softDelete(@PathVariable Long id){
+//
+//        NoteResponseDTO response = service.delete(id);
+//        return response;
+//    }
 
     @DeleteMapping("/hard/{id}")
     public NoteResponseDTO hardDelete(@PathVariable Long id){
