@@ -17,7 +17,7 @@ import java.util.List;
 public class CatagoreContoller {
 
     private final CatagoreService service ;
-    private final CatagoreRepository repository ;
+//    private final CatagoreRepository repository ;
 
     @PostMapping
     public CatagoreResponseDTO create(@RequestBody CatagoreRequestDTO request){

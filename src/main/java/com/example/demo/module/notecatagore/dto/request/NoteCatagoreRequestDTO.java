@@ -12,8 +12,8 @@ public class NoteCatagoreRequestDTO {
 
     private Long id ;
 
-    private Long category;
+    private Long categoryId;
 
-    private List<Long> note ;
+    private List<Long> noteIds ;
 
 }

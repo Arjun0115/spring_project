@@ -11,7 +11,7 @@ import lombok.Setter;
 @Table( name = "tm_note_catagore")
 @Getter
 @Setter
-public class NoteCatagoteEntity {
+public class NoteCatagoreEntity {
 
     @Id
     @Column(name = "tmId")
