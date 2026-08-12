@@ -10,19 +10,18 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-@Table(name = "NOTE_ENTRY")
+@Table(name = "mm_note")
 public class NoteEntity {
 
     @Id
-    @GeneratedValue( strategy = GenerationType.SEQUENCE , generator = "NOTE_ID_SEQ")
-    @SequenceGenerator(name = "NOTE_ID_SEQ" , sequenceName = "ID_SEQ" , allocationSize = 50)
+    @GeneratedValue( strategy = GenerationType.SEQUENCE)
     @Column( name = "ntId")
     private Long id ;
 
-    @Column( name = "noteTitle" , nullable = false )
+    @Column( name = "ntTitle" , nullable = false )
     private String title ;
 
-    @Column( name = "noteContent" , nullable = false )
+    @Column( name = "ntContent" , nullable = false )
     private String content ;
 
     @Column( name = "ntStatus" , nullable = false )

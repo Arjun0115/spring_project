@@ -14,6 +14,7 @@ import lombok.Setter;
 public class NoteCatagoreEntity {
 
     @Id
+    @GeneratedValue( strategy = GenerationType.SEQUENCE)
     @Column(name = "tmId")
     private Long id ;
 

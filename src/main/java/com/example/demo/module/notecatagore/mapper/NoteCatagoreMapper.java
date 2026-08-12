@@ -11,5 +11,6 @@ import java.util.List;
 public interface NoteCatagoreMapper {
 
     NoteCatagoreResponseDTO toResponse(NoteCatagoreEntity entity) ;
-    List<NoteCatagoreResponseDTO> toResponseList(NoteCatagoreEntity entity) ;
+
+    List<NoteCatagoreResponseDTO> toResponseList( List<NoteCatagoreEntity> entity) ;
 }
