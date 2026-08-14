@@ -16,9 +16,7 @@ import com.example.demo.module.notecatagore.repository.NoteCatagoreReposotry;
 import com.example.demo.module.notecatagore.service.NoteCatagoreService;
 import com.example.demo.module.notecatagore.specification.NoteCatagoreSpecification;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
-import org.yaml.snakeyaml.events.Event;
 
 import java.util.List;
 
@@ -28,7 +26,7 @@ import java.util.List;
 public class NoteCatagoreServiceImpl implements NoteCatagoreService {
 
     private final NoteCatagoreMapper mapper ;
-    private final NoteCatagoreReposotry reposotry ;
+    private final NoteCatagoreReposotry repository;
     private final NoteRepository noteRepository ;
     private final CatagoreRepository catagoreRepository ;
 
@@ -48,7 +46,7 @@ public class NoteCatagoreServiceImpl implements NoteCatagoreService {
             entity.setNote(noteEntity);
             entity.setCategory(catagoreEntity);
 
-            savedEntities.add(reposotry.save(entity)) ;
+            savedEntities.add(repository.save(entity)) ;
         }
 
         return mapper.toResponseList(savedEntities) ;
@@ -58,7 +56,7 @@ public class NoteCatagoreServiceImpl implements NoteCatagoreService {
     @Override
     public List<NoteCatagoreResponseDTO> getAll(NoteCatagoreFilterRequestDTO filter){
 
-        List<NoteCatagoreEntity> entities = reposotry.findAll(
+        List<NoteCatagoreEntity> entities = repository.findAll(
                  NoteCatagoreSpecification.filter(filter)
         ) ;
 
@@ -68,28 +66,38 @@ public class NoteCatagoreServiceImpl implements NoteCatagoreService {
     @Override
     public List<NoteCatagoreResponseDTO> getByNoteId(Long Id) {
 
-        NoteEntity noteEntity = noteRepository.findById(Id).orElseThrow(
+        noteRepository.findById(Id).orElseThrow(
                 ()-> new ResourceNotFoundException("Note not found")
         ) ;
+
+        repository.findById(Id).orElseThrow(
+                ()-> new ResourceNotFoundException("Note not found")
+        );
+
 
         NoteCatagoreFilterRequestDTO filter = new NoteCatagoreFilterRequestDTO() ;
         filter.setNtId(Id);
 
-        List<NoteCatagoreEntity> entities = reposotry.findAll(NoteCatagoreSpecification.filter(filter)) ;
+        List<NoteCatagoreEntity> entities = repository.findAll(NoteCatagoreSpecification.filter(filter)) ;
 
         return mapper.toResponseList(entities) ;
     }
 
     @Override
     public List<NoteCatagoreResponseDTO> getByCatagoreId(Long Id) {
-        CatagoreEntity catagoreEntity = catagoreRepository.findById(Id).orElseThrow(
-                ()-> new ResourceNotFoundException("Note not found")
+
+        catagoreRepository.findById(Id).orElseThrow(
+                ()-> new ResourceNotFoundException("Catagore not found")
         ) ;
+
+        repository.findById(Id).orElseThrow(
+                ()-> new ResourceNotFoundException("Catagore not found")
+        );
 
         NoteCatagoreFilterRequestDTO filter = new NoteCatagoreFilterRequestDTO() ;
         filter.setCtId(Id);
 
-        List<NoteCatagoreEntity> entities = reposotry.findAll(NoteCatagoreSpecification.filter(filter)) ;
+        List<NoteCatagoreEntity> entities = repository.findAll(NoteCatagoreSpecification.filter(filter)) ;
 
         return mapper.toResponseList(entities) ;
     }
@@ -98,7 +106,7 @@ public class NoteCatagoreServiceImpl implements NoteCatagoreService {
     @Override
     public NoteCatagoreResponseDTO update(Long Id , SingleNoteCatagoreRequestDTO request){
 
-        NoteCatagoreEntity entity = reposotry.findById(Id)
+        NoteCatagoreEntity entity = repository.findById(Id)
                 .orElseThrow(()-> new ResourceNotFoundException("Note Catagore not found")) ;
 
         CatagoreEntity catagoreEntity = catagoreRepository.findById(request.getCategoryId())
@@ -111,7 +119,7 @@ public class NoteCatagoreServiceImpl implements NoteCatagoreService {
         entity.setCategory(catagoreEntity);
         entity.setNote(noteEntity);
 
-        entity = reposotry.save(entity) ;
+        entity = repository.save(entity) ;
 
         return mapper.toResponse(entity) ;
     }
@@ -121,14 +129,14 @@ public class NoteCatagoreServiceImpl implements NoteCatagoreService {
     @Override
     public NoteCatagoreResponseDTO softDelete(Long Id){
 
-        NoteCatagoreEntity entity = reposotry.findById(Id)
+        NoteCatagoreEntity entity = repository.findById(Id)
                 .orElseThrow(()-> new ResourceNotFoundException("Note Catagore not found")) ;
 
         NoteCatagoreResponseDTO response = mapper.toResponse(entity) ;
 
         entity.setStatus(StatusEnum.X);
 
-        entity = reposotry.save(entity) ;
+        entity = repository.save(entity) ;
 
         return response ;
     }
@@ -136,12 +144,12 @@ public class NoteCatagoreServiceImpl implements NoteCatagoreService {
     @Override
     public NoteCatagoreResponseDTO hardDelete(Long Id){
 
-        NoteCatagoreEntity entity = reposotry.findById(Id)
+        NoteCatagoreEntity entity = repository.findById(Id)
                 .orElseThrow(()-> new ResourceNotFoundException("Note Catagore not found")) ;
 
         NoteCatagoreResponseDTO response = mapper.toResponse(entity) ;
 
-        reposotry.delete(entity);
+        repository.delete(entity);
 
         return response ;
     }

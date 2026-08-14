@@ -31,11 +31,11 @@ public class NoteCatagoreController {
     }
 
     @GetMapping
-    public List<NoteCatagoreResponseDTO> getAll(NoteCatagoreFilterRequestDTO filter){
+    public ResponseEntity<ApiResponse<List<NoteCatagoreResponseDTO>>> getAll(NoteCatagoreFilterRequestDTO filter){
 
         List<NoteCatagoreResponseDTO> response = service.getAll(filter);
 
-        return response ;
+        return ResponseBuilder.fetch( "Note Catagore association" , response);
 
     }
 
@@ -44,16 +44,16 @@ public class NoteCatagoreController {
 
         List<NoteCatagoreResponseDTO> response = service.getByNoteId(id) ;
 
-        return ResponseBuilder.success( "Note Catagore association" , response);
+        return ResponseBuilder.fetch( "Note Catagore association" , response);
 
     }
 
     @GetMapping("/catagore/{id}")
-    public List<NoteCatagoreResponseDTO> getByCatagoreId (@PathVariable Long id){
+    public ResponseEntity<ApiResponse<List<NoteCatagoreResponseDTO>>> getByCatagoreId (@PathVariable Long id){
 
         List<NoteCatagoreResponseDTO> response = service.getByCatagoreId(id) ;
 
-        return response ;
+        return ResponseBuilder.fetch( "Note Catagore association" , response);
     }
 
     @PutMapping("/{id}")

@@ -1,7 +1,6 @@
 package com.example.demo.common.response;
 
 
-import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -21,7 +20,7 @@ public class ResponseBuilder {
                 .getPath();
     }
 
-    public static <T> ResponseEntity<ApiResponse<T>> success(String message , T data ){
+    public static <T> ResponseEntity<ApiResponse<T>> fetch(String message , T data ){
 
         ApiResponse<T> response = ApiResponse.<T>builder()
                 .success(true)
