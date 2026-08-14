@@ -13,7 +13,8 @@ public class CatagoreEntity {
 
 
     @Id
-    @GeneratedValue( strategy = GenerationType.SEQUENCE)
+    @GeneratedValue( strategy = GenerationType.SEQUENCE , generator = "ct_id_seq")
+    @SequenceGenerator( name = "ct_id_seq" , sequenceName = "ct_id_seq" , allocationSize = 1)
     @Column(name = "ctId")
     private Long ctId;
 

@@ -1,21 +1,23 @@
 package com.example.demo.module.notecatagore.controller;
 
 
-import com.example.demo.common.apibank.apiLinks.Apiurl;
+import com.example.demo.common.apiconstant.Apiconstant;
+import com.example.demo.common.response.ApiResponse;
+import com.example.demo.common.response.ResponseBuilder;
 import com.example.demo.module.notecatagore.dto.request.NoteCatagoreFilterRequestDTO;
 import com.example.demo.module.notecatagore.dto.request.NoteCatagoreRequestDTO;
 import com.example.demo.module.notecatagore.dto.request.SingleNoteCatagoreRequestDTO;
 import com.example.demo.module.notecatagore.dto.response.NoteCatagoreResponseDTO;
-import com.example.demo.module.notecatagore.repository.NoteCatagoreReposotry;
 import com.example.demo.module.notecatagore.service.NoteCatagoreService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(Apiurl.NOTECATAGORE)
+@RequestMapping(Apiconstant.NOTECATAGORE)
 public class NoteCatagoreController {
 
     private final NoteCatagoreService service ;
@@ -35,6 +37,23 @@ public class NoteCatagoreController {
 
         return response ;
 
+    }
+
+    @GetMapping("/note/{id}")
+    public ResponseEntity<ApiResponse<List<NoteCatagoreResponseDTO>>> getByNoteId(@PathVariable Long id){
+
+        List<NoteCatagoreResponseDTO> response = service.getByNoteId(id) ;
+
+        return ResponseBuilder.success( "Note Catagore association" , response);
+
+    }
+
+    @GetMapping("/catagore/{id}")
+    public List<NoteCatagoreResponseDTO> getByCatagoreId (@PathVariable Long id){
+
+        List<NoteCatagoreResponseDTO> response = service.getByCatagoreId(id) ;
+
+        return response ;
     }
 
     @PutMapping("/{id}")

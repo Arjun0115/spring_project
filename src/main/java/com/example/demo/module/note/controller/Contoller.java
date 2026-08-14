@@ -1,10 +1,8 @@
 package com.example.demo.module.note.controller;
 
-import com.example.demo.common.apibank.apiLinks.Apiurl;
+import com.example.demo.common.apiconstant.Apiconstant;
 import com.example.demo.module.note.dto.request.NoteRequestDTO;
 import com.example.demo.module.note.dto.response.NoteResponseDTO;
-
-
 import com.example.demo.module.note.service.NoteService;
 
 import lombok.RequiredArgsConstructor;
@@ -15,7 +13,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping(Apiurl.NOTE)
+@RequestMapping(Apiconstant.NOTE)
 @RequiredArgsConstructor
 public class Contoller {
 

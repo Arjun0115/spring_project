@@ -1,10 +1,9 @@
 package com.example.demo.module.catagore.controller;
 
 
-import com.example.demo.common.apibank.apiLinks.Apiurl;
+import com.example.demo.common.apiconstant.Apiconstant;
 import com.example.demo.module.catagore.dto.request.CatagoreRequestDTO;
 import com.example.demo.module.catagore.dto.response.CatagoreResponseDTO;
-import com.example.demo.module.catagore.repository.CatagoreRepository;
 import com.example.demo.module.catagore.service.CatagoreService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -12,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(Apiurl.CATAGORE)
+@RequestMapping(Apiconstant.CATAGORE)
 @RequiredArgsConstructor
 public class CatagoreContoller {
 

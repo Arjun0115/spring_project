@@ -1,7 +1,7 @@
-package com.example.demo.common.apibank.apiLinks;
+package com.example.demo.common.apiconstant;
 
-public final class Apiurl {
-    public Apiurl(){
+public final class Apiconstant {
+    public Apiconstant(){
 
     }
 
@@ -10,6 +10,6 @@ public final class Apiurl {
 
 
     // assocaiton
-
     public static final String NOTECATAGORE = "/note-catagore" ;
+
 }

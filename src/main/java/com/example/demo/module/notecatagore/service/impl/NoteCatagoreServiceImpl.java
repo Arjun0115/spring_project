@@ -65,6 +65,35 @@ public class NoteCatagoreServiceImpl implements NoteCatagoreService {
         return mapper.toResponseList(entities) ;
     }
 
+    @Override
+    public List<NoteCatagoreResponseDTO> getByNoteId(Long Id) {
+
+        NoteEntity noteEntity = noteRepository.findById(Id).orElseThrow(
+                ()-> new ResourceNotFoundException("Note not found")
+        ) ;
+
+        NoteCatagoreFilterRequestDTO filter = new NoteCatagoreFilterRequestDTO() ;
+        filter.setNtId(Id);
+
+        List<NoteCatagoreEntity> entities = reposotry.findAll(NoteCatagoreSpecification.filter(filter)) ;
+
+        return mapper.toResponseList(entities) ;
+    }
+
+    @Override
+    public List<NoteCatagoreResponseDTO> getByCatagoreId(Long Id) {
+        CatagoreEntity catagoreEntity = catagoreRepository.findById(Id).orElseThrow(
+                ()-> new ResourceNotFoundException("Note not found")
+        ) ;
+
+        NoteCatagoreFilterRequestDTO filter = new NoteCatagoreFilterRequestDTO() ;
+        filter.setCtId(Id);
+
+        List<NoteCatagoreEntity> entities = reposotry.findAll(NoteCatagoreSpecification.filter(filter)) ;
+
+        return mapper.toResponseList(entities) ;
+    }
+
 
     @Override
     public NoteCatagoreResponseDTO update(Long Id , SingleNoteCatagoreRequestDTO request){
@@ -86,6 +115,8 @@ public class NoteCatagoreServiceImpl implements NoteCatagoreService {
 
         return mapper.toResponse(entity) ;
     }
+
+
 
     @Override
     public NoteCatagoreResponseDTO softDelete(Long Id){

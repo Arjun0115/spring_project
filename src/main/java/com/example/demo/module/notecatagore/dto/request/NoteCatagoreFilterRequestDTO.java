@@ -9,7 +9,9 @@ import lombok.Setter;
 @Setter
 public class NoteCatagoreFilterRequestDTO {
 
-    private Long id ;
+    private Long ntId ;
+
+    private Long ctId ;
 
     private StatusEnum status ;
 

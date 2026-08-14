@@ -14,6 +14,10 @@ public interface NoteCatagoreService {
 
     List<NoteCatagoreResponseDTO> getAll(NoteCatagoreFilterRequestDTO filter) ;
 
+    List<NoteCatagoreResponseDTO> getByNoteId(Long Id) ;
+
+    List<NoteCatagoreResponseDTO> getByCatagoreId( Long Id ) ;
+
     NoteCatagoreResponseDTO update(Long Id , SingleNoteCatagoreRequestDTO request) ;
 
     NoteCatagoreResponseDTO softDelete(Long Id) ;
