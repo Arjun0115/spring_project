@@ -1,5 +1,6 @@
 package com.example.demo.module.note.service;
 
+import com.example.demo.module.note.dto.request.NoteFilterDTO;
 import com.example.demo.module.note.dto.request.NoteRequestDTO;
 import com.example.demo.module.note.dto.response.NoteResponseDTO;
 
@@ -11,12 +12,14 @@ public interface NoteService {
 
     NoteResponseDTO create(NoteRequestDTO request) ;
 
-    List<NoteResponseDTO> findAll() ;
+    List<NoteResponseDTO> findAll(NoteFilterDTO filter) ;
 
-    NoteResponseDTO findById(Long Id) ;
+    List<NoteResponseDTO> findById(Long Id) ;
 
     NoteResponseDTO update(Long id , NoteRequestDTO request) ;
 
-    NoteResponseDTO delete(Long id) ;
+    NoteResponseDTO softDelete( Long Id ) ;
+
+    NoteResponseDTO hardDelete(Long id) ;
 
 }

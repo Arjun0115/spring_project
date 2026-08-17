@@ -1,11 +1,15 @@
 package com.example.demo.module.note.service.impl;
 
+import com.example.demo.common.enumstatus.StatusEnum;
+import com.example.demo.common.exception.ResourceNotFoundException;
+import com.example.demo.module.note.dto.request.NoteFilterDTO;
 import com.example.demo.module.note.dto.request.NoteRequestDTO;
 import com.example.demo.module.note.dto.response.NoteResponseDTO;
 import com.example.demo.module.note.entity.NoteEntity;
 import com.example.demo.module.note.mapper.NoteMapper;
 import com.example.demo.module.note.repository.NoteRepository;
 import com.example.demo.module.note.service.NoteService;
+import com.example.demo.module.note.specification.NoteSpecification;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -33,41 +37,69 @@ public class NoteServiceImpl implements NoteService {
             return mapper.toResponse(save);
         }
 
-
        return null ;
     }
 
     @Override
-    public List<NoteResponseDTO> findAll(){
+    public NoteResponseDTO update(Long id , NoteRequestDTO request){
 
-        List<NoteEntity> entities = repository.findAll() ;
+        repository.findById(id)
+                .orElseThrow(()-> new ResourceNotFoundException("Note not found"));
+
+        NoteEntity entity = mapper.update( id , request) ;
+
+        entity = repository.save(entity) ;
+
+        return mapper.toResponse(entity) ;
+    }
+
+    @Override
+    public List<NoteResponseDTO> findAll(NoteFilterDTO filter){
+
+        List<NoteEntity> entities = repository.findAll(NoteSpecification.filter(filter)) ;
 
         return mapper.toResponseList(entities);
     }
 
     @Override
-    public NoteResponseDTO findById(Long id){
+    public List<NoteResponseDTO>  findById(Long id){
 
-        NoteEntity entity = repository.findById(id).orElseThrow() ;
+        repository.findById(id)
+                    .orElseThrow(()-> new ResourceNotFoundException("Note not found")) ;
 
+        NoteFilterDTO filter = new NoteFilterDTO() ;
+        filter.setId(id);
 
+        List<NoteEntity> entity = repository.findAll(NoteSpecification.filter(filter)) ;
 
+        return mapper.toResponseList(entity) ;
+    }
+
+    @Override
+    public NoteResponseDTO softDelete(Long Id){
+
+        NoteEntity entity = repository.findById(Id)
+                .orElseThrow(()-> new ResourceNotFoundException("Note not found")) ;
+
+        entity.setNtStatus(StatusEnum.X);
+
+        entity = repository.save(entity) ;
+        
         return mapper.toResponse(entity) ;
     }
 
     @Override
-    public NoteResponseDTO delete(Long id) {
-        NoteEntity entity =  repository.findById(id).orElseThrow() ;
-        repository.deleteById(id);
+    public NoteResponseDTO hardDelete(Long id) {
+
+        NoteEntity entity =  repository.findById(id)
+                .orElseThrow(()-> new ResourceNotFoundException("Note not found")) ;
 
         NoteResponseDTO response = mapper.toResponse(entity) ;
+
+        repository.deleteById(id);
+
         return response ;
     }
 
-    @Override
-    public NoteResponseDTO update(Long id , NoteRequestDTO request){
-        NoteEntity entity = mapper.update( id , request) ;
-        repository.save(entity) ;
-        return mapper.toResponse(entity) ;
-    }
+
 }

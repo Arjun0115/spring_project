@@ -23,11 +23,11 @@ public class NoteCatagoreController {
     private final NoteCatagoreService service ;
 
     @PostMapping
-    public List<NoteCatagoreResponseDTO> create(@RequestBody NoteCatagoreRequestDTO request){
+    public ResponseEntity<ApiResponse<List<NoteCatagoreResponseDTO>>> create(@RequestBody NoteCatagoreRequestDTO request){
 
         List<NoteCatagoreResponseDTO> response = service.create(request) ;
 
-        return response ;
+        return ResponseBuilder.create("Note Catagore association" , response) ;
     }
 
     @GetMapping
@@ -57,29 +57,29 @@ public class NoteCatagoreController {
     }
 
     @PutMapping("/{id}")
-    public NoteCatagoreResponseDTO update( @PathVariable Long id ,
+    public  ResponseEntity<ApiResponse<NoteCatagoreResponseDTO>> update( @PathVariable Long id ,
              @RequestBody SingleNoteCatagoreRequestDTO request){
 
         NoteCatagoreResponseDTO response = service.update(id , request) ;
 
-        return response ;
+        return ResponseBuilder.update( "Note Catagore association" , response);
 
     }
 
     @DeleteMapping("/{id}")
-    public NoteCatagoreResponseDTO softDelete(@PathVariable Long id){
+    public  ResponseEntity<ApiResponse<NoteCatagoreResponseDTO>> softDelete(@PathVariable Long id){
 
         NoteCatagoreResponseDTO response = service.softDelete(id) ;
 
-        return response ;
+        return ResponseBuilder.delete( "Note Catagore association" , response);
     }
 
 
     @DeleteMapping("/hard/{id}")
-    public NoteCatagoreResponseDTO hardDelete( @PathVariable Long id){
+    public  ResponseEntity<ApiResponse<NoteCatagoreResponseDTO>> hardDelete( @PathVariable Long id){
 
         NoteCatagoreResponseDTO response = service.hardDelete(id);
 
-        return response ;
+        return ResponseBuilder.delete( "Note Catagore association" , response);
     }
 }

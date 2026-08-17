@@ -20,12 +20,27 @@ public class ResponseBuilder {
                 .getPath();
     }
 
+    // create
+    public static <T> ResponseEntity<ApiResponse<T>> create(String message , T data){
+        ApiResponse<T> response = ApiResponse.<T>builder()
+                .success(true)
+                .status(HttpStatus.CREATED.value())
+                .message(message + " created successfully")
+                .timestamp(LocalDateTime.now())
+                .path(getCurrentPath())
+                .data(data)
+                .build() ;
+
+        return ResponseEntity.status(HttpStatus.CREATED.value()).body(response) ;
+    }
+
+    // fetch data
     public static <T> ResponseEntity<ApiResponse<T>> fetch(String message , T data ){
 
         ApiResponse<T> response = ApiResponse.<T>builder()
                 .success(true)
                 .status(HttpStatus.OK.value())
-                .message(message)
+                .message(message + " fetch data")
                 .timestamp(LocalDateTime.now())
                 .path(getCurrentPath())
                 .data(data)
@@ -33,5 +48,32 @@ public class ResponseBuilder {
 
         return ResponseEntity.status(HttpStatus.OK.value()).body(response) ;
     }
+
+    public static <T> ResponseEntity<ApiResponse<T>> update(String message , T data){
+        ApiResponse<T> response = ApiResponse.<T>builder()
+                .success(true)
+                .status(HttpStatus.OK.value())
+                .message(message + " update successfully")
+                .timestamp(LocalDateTime.now())
+                .path(getCurrentPath())
+                .data(data)
+                .build() ;
+
+        return ResponseEntity.status(HttpStatus.OK.value()).body(response) ;
+    }
+
+    public static <T> ResponseEntity<ApiResponse<T>> delete(String message , T data){
+        ApiResponse<T> response = ApiResponse.<T>builder()
+                .success(true)
+                .status(HttpStatus.OK.value())
+                .message(message + " delete successfully")
+                .timestamp(LocalDateTime.now())
+                .path(getCurrentPath())
+                .data(data)
+                .build() ;
+
+        return ResponseEntity.status(HttpStatus.OK.value()).body(response) ;
+    }
+
 
 }
