@@ -3,9 +3,9 @@ spring:
     name: demo
 
   datasource:
-    url: jdbc:oracle:thin:@localhost:1521/ORCLPDB
-    username: DEMOUSER
-    password: demo123
+    url: 
+    username: 
+    password: 
     driver-class-name: oracle.jdbc.OracleDriver
 
   jpa:
